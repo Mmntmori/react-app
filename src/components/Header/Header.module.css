@@ -1,0 +1,15 @@
+.header {
+    grid-area: header;
+    background-color: tomato;
+}
+
+.logo {
+    width: 80px;
+    height: 80px;
+}
+
+.logo img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
