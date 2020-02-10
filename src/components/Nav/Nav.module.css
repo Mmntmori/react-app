@@ -1,4 +1,12 @@
 .nav {
     background-color: lightblue;
     grid-area: nav;
+    padding: 24px;
+}
+
+.item {
+    display: block;
+    text-decoration: none;
+    color: white;
+    margin: 16px 0 0 0;
 }

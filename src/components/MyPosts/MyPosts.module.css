@@ -1,0 +1,10 @@
+.field {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.posts {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 24px;
+}
