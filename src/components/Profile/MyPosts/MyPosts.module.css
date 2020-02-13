@@ -8,3 +8,9 @@
     flex-wrap: wrap;
     padding: 24px;
 }
+
+.newPost {}
+
+.myPostsBlock {
+    padding: 16px;
+}

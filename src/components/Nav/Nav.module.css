@@ -10,3 +10,7 @@
     color: white;
     margin: 16px 0 0 0;
 }
+
+.item.active {
+    color: red;
+}

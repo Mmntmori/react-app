@@ -4,9 +4,9 @@ import Post from './Post/Post'
 
 function MyPosts() {
     return (
-        <div>
-            My Posts
-            <div>
+        <div className={style.myPostsBlock}>
+            <h3>My Posts</h3>
+            <div className={style.newPost}>
                 <textarea className={style.field}></textarea>
                 <button>Add Post</button>
             </div>
