@@ -4,7 +4,7 @@ import MyPosts from './MyPosts/MyPosts'
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 
 function Profile(props) {
-    let postsData = props.postsData
+    let postsData = props.profilePage.postsData
 
     return (
         <div className={style.profile}>

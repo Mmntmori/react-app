@@ -7,7 +7,7 @@ function MyPosts(props) {
 
     let postsData = props.postsData
 
-    let postsElements = postsData.map(el => <Post key={el.id} id={el.id} message={el.text} author={el.author} likesCount={el.likes} />)
+    let postsElements = postsData.map(el => <Post key={el.id} id={el.id} message={el.text} author={el.author} likesCount={el.likesCount} />)
 
     return (
         <div className={style.myPostsBlock}>

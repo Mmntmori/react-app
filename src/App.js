@@ -7,24 +7,20 @@ import './App.css';
 import { Route, BrowserRouter } from 'react-router-dom';
 
 
-
-
 function App(props) {
-  let dialogsData = props.dialogsData;
-
-  let messagesData = props.messagesData;
-
-  let postsData = props.messagesData;
+  let sideBar = props.state.sideBar;
+  let dialogsPage = props.state.dialogsPage;
+  let profilePage = props.state.profilePage;
 
   return (
     <BrowserRouter>
       <div className="wrapper">
         <div className="container">
           <Header />
-          <SideBar />
+          <SideBar sideBar={sideBar}/>
           <div className="wrapper-content">
-            <Route path='/dialogs' component={() => <Dialogs dialogsData={dialogsData} messagesData={messagesData} />} />
-            <Route path='/profile' component={() => <Profile postsData={postsData} />} />
+            <Route path='/dialogs' render={() => <Dialogs dialogsPage={dialogsPage} />} />
+            <Route path='/profile' render={() => <Profile profilePage={profilePage} />} />
             {/* <Route path='/settings' component={Settings}/>
             <Route path='/music' component={Music}/>
             <Route path='/feed' component={Feed}/> */}

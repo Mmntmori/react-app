@@ -2,6 +2,8 @@ import React from 'react';
 import style from './Post.module.css'
 
 function Post(props) {
+    console.log(props);
+    
     return (
         <div className={style.item}>
             <img className={style.image} src="http://placekitten.com/200/250" alt="" />

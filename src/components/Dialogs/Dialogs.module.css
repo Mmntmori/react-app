@@ -5,16 +5,43 @@
 
 .dialogsItems {
     padding: 16px;
+
 }
 
 .dialogsItems .active {
     font-weight: 700;
 }
 
-.dialog {}
+.avatar {
+    display: inline-block;
+    font-size: 0;
+    vertical-align: middle;
+    margin-right: 8px;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+}
+
+.dialog + .dialog {
+    margin-top: 16px;
+}
 
 .messages {
     padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
-.message {}
+.message {
+    background-color: lightsteelblue;
+    border: 1px solid lightblue;
+    border-radius: 8px;
+    padding: 8px 24px;
+    max-width: 75%;
+    flex-grow: 0;
+}
+
+.message + .message {
+    margin-top: 16px;
+}

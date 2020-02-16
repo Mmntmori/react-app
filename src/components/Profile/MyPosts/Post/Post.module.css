@@ -26,9 +26,16 @@
 }
 
 .likeBtn {
-    margin-left: auto;
     width: 24px;
     height: 24px;
     background-color: lightpink;
     border-radius: 8px;
+    color: white;
+    font-size: 12px;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-top: 16px;
 }

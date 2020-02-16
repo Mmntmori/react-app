@@ -1,0 +1,44 @@
+.friends {
+    margin-top: 48px;
+}
+
+.title {
+    color: white;
+    margin: 0;
+    padding: 0;
+    font-size: 64px;
+}
+
+.list {
+    display: flex;
+    overflow: scroll;
+    margin-top: 24px;
+    max-width: 100%;
+}
+
+.item {
+    width: 80px;
+    flex: 0 0 auto;
+    text-decoration: none;
+    text-align: center;
+}
+
+.item:hover .name {
+    color: lightpink;
+}
+
+.avatar {
+    max-width: 100%;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin: 0 auto;
+    display: block;
+}
+
+.name {
+    margin: 8px 0 0;
+    padding: 0;
+    color: white;
+    text-decoration: none;
+}
