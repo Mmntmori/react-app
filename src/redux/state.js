@@ -1,4 +1,4 @@
-const state = {
+let state = {
     sideBar: {
         friendsData: [
             {
@@ -39,6 +39,19 @@ const state = {
             { id: 4, message: 'wow, u\'r cute' }
         ]
     }
+}
+
+export let addPost = (postMessage) => {
+    let newPost = {
+        id: 5,
+        author: 'Котик',
+        text: postMessage,
+        likesCount: '0'
+    }
+    console.log(postMessage);
+    
+
+    state.profilePage.postsData.push(newPost);
 }
 
 export default state
