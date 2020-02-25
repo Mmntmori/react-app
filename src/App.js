@@ -11,7 +11,7 @@ function App(props) {
   let sideBar = props.state.sideBar;
   let dialogsPage = props.state.dialogsPage;
   let profilePage = props.state.profilePage;
-  let addPost = props.addPost;
+  let dispatch = props.dispatch;
 
   return (
       <div className="wrapper">
@@ -19,8 +19,10 @@ function App(props) {
           <Header />
           <SideBar sideBar={sideBar}/>
           <div className="wrapper-content">
-            <Route path='/dialogs' render={() => <Dialogs dialogsPage={ dialogsPage } />} />
-            <Route path='/profile' render={() => <Profile profilePage={ profilePage } addPost={ addPost } />} />
+            <Route path='/dialogs' render={() => <Dialogs dispatch={ dispatch }
+                                                          dialogsPage={ dialogsPage } />} />
+            <Route path='/profile' render={() => <Profile profilePage={ profilePage }
+                                                          dispatch={ dispatch } />} />
             {/* <Route path='/settings' component={Settings}/>
             <Route path='/music' component={Music}/>
             <Route path='/feed' component={Feed}/> */}

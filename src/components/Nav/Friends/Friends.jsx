@@ -4,7 +4,6 @@ import { NavLink } from 'react-router-dom';
 
 function Friends(props) {
     let friends = props.friends;
-    console.log(friends);
     let friendsElements = friends.map(el => (
         <NavLink to={el.link} className={style.item}>
             <img className={style.avatar} src={el.avatar} alt={el.name}/>
