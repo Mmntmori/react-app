@@ -1,6 +1,13 @@
 .field {
     width: 100%;
     box-sizing: border-box;
+    border: 2px solid lightcyan;
+    border-radius: 4px;
+    min-height: 60px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #838383;
+    font-size: 14px;
+    line-height: 20px;
 }
 
 .posts {
@@ -13,4 +20,31 @@
 
 .myPostsBlock {
     padding: 16px;
+}
+
+.btn {
+    display: inline-block;
+    background-color: lightskyblue;
+    padding: 12px 20px;
+    border-radius: 4px;
+    border: none;
+    transition: all .2s;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: bold;
+}
+
+.btn:hover {
+    box-shadow: lightskyblue 0 0 2px 2px inset;
+    background-color: rgb(158, 213, 248);
+    transition: all .2s;
+}
+
+.btn:active {
+    box-shadow: lightskyblue 0 0 6px 6px inset;
+    background-color: rgb(102, 191, 247);
+    transition: all .2s;
+
 }

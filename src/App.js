@@ -17,7 +17,7 @@ function App(props) {
       <div className="wrapper">
         <div className="container">
           <Header />
-          <SideBar sideBar={sideBar}/>
+          <SideBar sideBar={ sideBar }/>
           <div className="wrapper-content">
             <Route path='/dialogs' render={() => <Dialogs dispatch={ dispatch }
                                                           dialogsPage={ dialogsPage } />} />

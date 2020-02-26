@@ -8,7 +8,7 @@ function Profile(props) {
     let newPostText = props.profilePage.newPostText;
     let dispatch = props.dispatch;
     return (
-        <div className={style.profile}>
+        <div className={ style.profile }>
             <ProfileInfo />
             <MyPosts postsData={ postsData } 
                      newPostText={ newPostText }
