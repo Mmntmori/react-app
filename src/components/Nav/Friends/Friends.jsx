@@ -11,7 +11,6 @@ function Friends(props) {
         </NavLink>)
     )
 
-
     return (
         <div className={style.friends}>
             <h2 className={style.title}>Friends</h2>

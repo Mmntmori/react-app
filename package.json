@@ -33,6 +33,7 @@
     ]
   },
   "devDependencies": {
-    "autoreload": "0.0.7"
+    "autoreload": "0.0.7",
+    "redux": "^4.0.5"
   }
 }

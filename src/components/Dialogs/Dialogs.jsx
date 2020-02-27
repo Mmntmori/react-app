@@ -6,6 +6,7 @@ import { updateNewMessageTextActionCreator, sendMessageActionCreator } from '../
 
 
 function Dialogs(props) {
+
     let dialogsData = props.dialogsPage.dialogsData;
     let messagesData = props.dialogsPage.messagesData;
     let newMessageText = props.dialogsPage.newMessageText;

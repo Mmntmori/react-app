@@ -4,7 +4,7 @@ import sidebarReducer from './sidebarReducer';
 
 let store = {
     _state: {
-        sideBar: {
+        sidebar: {
             friendsData: [
                 {
                     name: 'Котик 1',

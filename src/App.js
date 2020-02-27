@@ -8,7 +8,7 @@ import { Route } from 'react-router-dom';
 
 
 function App(props) {
-  let sideBar = props.state.sideBar;
+  let sidebar = props.state.sidebar;
   let dialogsPage = props.state.dialogsPage;
   let profilePage = props.state.profilePage;
   let dispatch = props.dispatch;
@@ -17,7 +17,7 @@ function App(props) {
       <div className="wrapper">
         <div className="container">
           <Header />
-          <SideBar sideBar={ sideBar }/>
+          <SideBar sidebar={ sidebar }/>
           <div className="wrapper-content">
             <Route path='/dialogs' render={() => <Dialogs dispatch={ dispatch }
                                                           dialogsPage={ dialogsPage } />} />

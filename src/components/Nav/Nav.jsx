@@ -12,7 +12,7 @@ function Nav(props) {
             <NavLink to="/music" className={style.item} activeClassName={style.active}>Music</NavLink>
             <NavLink to="/settings" className={style.item} activeClassName={style.active}>Settings</NavLink>
 
-            <Friends friends={props.sideBar.friendsData} />
+            <Friends friends={props.sidebar.friendsData} />
         </nav>
     )
 }
