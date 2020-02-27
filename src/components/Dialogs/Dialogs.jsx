@@ -2,7 +2,7 @@ import React from 'react';
 import style from './Dialogs.module.css'
 import DialogItem from './DialogItem/DialogItem'
 import Message from './Message/Message'
-import { updateNewMessageTextActionCreator, sendMessageActionCreator } from '../../redux/state';
+import { updateNewMessageTextActionCreator, sendMessageActionCreator } from '../../redux/dialogsReducer';
 
 
 function Dialogs(props) {
@@ -11,17 +11,17 @@ function Dialogs(props) {
     let newMessageText = props.dialogsPage.newMessageText;
     let dispatch = props.dispatch;
 
-    let dialogsElements = dialogsData.map(el => (<DialogItem key={el.id} name={el.name} id={el.id} />));
-    let messagesElements = messagesData.map(el => (<Message key={el.id} id={el.id} message={el.message} />))
+    let dialogsElements = dialogsData.map(el => (<DialogItem key={ el.id }
+                                                             name={ el.name } 
+                                                             id={ el.id } 
+                                                             avatar={ el.avatar }/>));
+    let messagesElements = messagesData.map(el => (<Message key={ el.id } 
+                                                            id={ el.id } 
+                                                            message={ el.message } />))
 
-    let newMessageElement = React.createRef();
-
-    // let onMessageChange = () => {
-    //     dispatch(updateNewMessageTextActionCreator(newMessageElement.current.value))
-    // }
 
     let onMessageChange = (e) => {
-        dispatch(updateNewMessageTextActionCreator( e.target.value));
+        dispatch(updateNewMessageTextActionCreator(e.target.value));
     }
 
     let sendMessage = () => {
@@ -35,8 +35,7 @@ function Dialogs(props) {
             </div>
             <div className={ style.messagesList }>
                 <div className={ style.messagesItems }>{ messagesElements }</div>
-                <textarea ref={ newMessageElement }
-                          value={ newMessageText }
+                <textarea value={ newMessageText }
                           onChange={ onMessageChange }
                           className={ style.field }/>
                 <button onClick={ sendMessage } 

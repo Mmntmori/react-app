@@ -13,5 +13,30 @@
 }
 
 .item.active {
-    color: red;
+    color: lightslategrey;
+}
+
+.item:hover:before {
+    display: inline-block;
+    vertical-align: middle;
+    border-radius: 50%;
+    content: '';
+    margin-right: 8px;
+    width: 8px;height: 8px;
+    font-size: 0;
+    background-color: white;
+    transition: all .2s;
+}
+
+.item:before {
+    margin-right: 0;
+    height: 0;
+    display: inline-block;
+    vertical-align: middle;
+    border-radius: 50%;
+    content: '';
+    width: 0;
+    font-size: 0;
+    background-color: white;
+    transition: all .2s;
 }

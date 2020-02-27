@@ -5,8 +5,39 @@
 
 .dialogsItems {
     padding: 16px;
-
 }
+
+.dialog a {
+    color: lightsalmon;
+    text-decoration: none;
+}
+
+.dialog:hover a:before {
+    display: inline-block;
+    vertical-align: middle;
+    border-radius: 50%;
+    content: '';
+    margin-right: 8px;
+    width: 8px;height: 8px;
+    font-size: 0;
+    background-color: lightsalmon;
+    transition: all .2s;
+}
+
+.dialog a:before {
+    margin-right: 0;
+    height: 0;
+    display: inline-block;
+    vertical-align: middle;
+    border-radius: 50%;
+    content: '';
+    width: 0;
+    font-size: 0;
+    background-color: lightsalmon;
+    transition: all .2s;
+}
+
+
 
 .dialogsItems .active {
     font-weight: 700;
