@@ -2,16 +2,14 @@ import React from 'react';
 import Header from './components/Header/Header'
 import SideBar from './components/Nav/Nav'
 import Profile from './components/Profile/Profile'
-import Dialogs from './components/Dialogs/Dialogs'
 import './App.css';
 import { Route } from 'react-router-dom';
+import DialogsContainer from './components/Dialogs/DialogsContainer';
 
 
 function App(props) {
-  let sidebar = props.state.sidebar;
-  let dialogsPage = props.state.dialogsPage;
-  let profilePage = props.state.profilePage;
-  let dispatch = props.dispatch;
+  let sidebar = props.store.getState().sidebar;
+  let store = props.store
 
   return (
       <div className="wrapper">
@@ -19,10 +17,8 @@ function App(props) {
           <Header />
           <SideBar sidebar={ sidebar }/>
           <div className="wrapper-content">
-            <Route path='/dialogs' render={() => <Dialogs dispatch={ dispatch }
-                                                          dialogsPage={ dialogsPage } />} />
-            <Route path='/profile' render={() => <Profile profilePage={ profilePage }
-                                                          dispatch={ dispatch } />} />
+            <Route path='/dialogs' render={() => <DialogsContainer store={ store } />} />
+            <Route path='/profile' render={() => <Profile store={ store } />} />
             {/* <Route path='/settings' component={Settings}/>
             <Route path='/music' component={Music}/>
             <Route path='/feed' component={Feed}/> */}

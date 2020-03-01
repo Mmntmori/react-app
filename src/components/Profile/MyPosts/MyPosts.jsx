@@ -1,8 +1,6 @@
 import React from 'react';
 import style from './MyPosts.module.css'
 import Post from './Post/Post'
-import {addPostActionCreator, updateNewPostTextActionCreator} from '../../../redux/profileReducer'
-
 
 
 function MyPosts(props) {
@@ -11,13 +9,9 @@ function MyPosts(props) {
 
     let postsElements = postsData.map(el => <Post key={el.id} id={el.id} message={el.text} author={el.author} likesCount={el.likesCount} />).reverse();
 
-    let addPost = () => {
-        props.dispatch(addPostActionCreator());
-    };
+    let addPost = props.addPost;
 
-    let onPostChange = (e) => {
-        props.dispatch(updateNewPostTextActionCreator(e.target.value));
-    }
+    let onPostChange = props.onPostChange;
 
     return (
         <div className={ style.myPostsBlock }>
