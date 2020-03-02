@@ -6,11 +6,16 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
+import StoreContext from './StoreContext';
+ 
 
 let rerenderEntireTree = (state) => {
     ReactDOM.render(
         <BrowserRouter>
-            <App store={ store } />
+            <StoreContext.Provider value={ store }> 
+                {/* <App store={ store } /> */}
+                <App />
+            </StoreContext.Provider>
         </BrowserRouter>, document.getElementById('root')
     );
 }
