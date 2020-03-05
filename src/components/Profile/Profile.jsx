@@ -5,12 +5,12 @@ import ProfileInfo from './ProfileInfo/ProfileInfo';
 import MyPostsContainer from './MyPosts/MyPostsContainer';
 
 function Profile(props) {
-    let store = props.store;
+    // let store = props.store;
 
     return (
         <div className={ style.profile }>
             <ProfileInfo />
-            <MyPostsContainer store={ store }/>
+            <MyPostsContainer />
         </div>
 
     )

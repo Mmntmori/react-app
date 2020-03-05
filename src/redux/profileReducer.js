@@ -1,6 +1,6 @@
 
 const ADD_POST = 'ADD-POST',
-      UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+    UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 
 let initialState = {
     postsData: [
@@ -12,26 +12,37 @@ let initialState = {
     newPostText: 'New text'
 }
 
+//TODO:
+//Зарефакторить редьюсер
 
 const profileReducer = (state = initialState, action) => {
-
+    let stateCopy;
     switch (action.type) {
-        case ADD_POST:
-            let newPostId = state.postsData[state.postsData.length - 1].id + 1;
-
+        case ADD_POST: {
+            stateCopy = {
+                ...state,
+                postsData: [...state.postsData]
+            }
+            let newPostId = stateCopy.postsData[stateCopy.postsData.length - 1].id + 1;
             let newPost = {
                 id: newPostId,
                 author: 'Котик',
-                text: state.newPostText,
+                text: stateCopy.newPostText,
                 likesCount: '0'
             }
-            state.newPostText ? state.postsData.push(newPost) : alert('ПОШЕЛ ТЫ НАХЕР, КОЗЕЛ');
-            state.newPostText = '';
 
-            return state;
-        case UPDATE_NEW_POST_TEXT:
-            state.newPostText = action.newText;
-            return state;
+            stateCopy.newPostText ? stateCopy.postsData.push(newPost) : alert('ПОШЕЛ ТЫ НАХЕР, КОЗЕЛ');
+            stateCopy.newPostText = '';
+
+            return stateCopy;
+        }
+        case UPDATE_NEW_POST_TEXT: {
+            stateCopy = {
+                ...state,
+                 newPostText: action.newText
+            }
+            return stateCopy;
+        }
         default: return state;
     }
 }
