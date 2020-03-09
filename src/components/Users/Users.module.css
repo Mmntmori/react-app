@@ -1,0 +1,48 @@
+.usersListBlock {
+    padding: 16px;
+
+}
+.user {
+    padding: 16px;
+    background-color: lightblue;
+    display: flex;
+    border-radius: 6px
+}
+
+.user + .user {
+    margin-top: 16px;
+}
+
+.left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 16px;
+}
+
+.right {
+    display: flex;
+    flex-direction: column;
+}
+
+.userPicture {
+    display: block;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.userBtn {
+    display: block;
+    margin: 16px 0 0;
+    padding: 16px 24px;
+    background-color: #fff;
+    border-radius: 6px;
+    border: none
+}
+.userName {}
+.userLocation {}
+.userCountry {}
+.userCity {}
+.userStatus {}

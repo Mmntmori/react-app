@@ -6,6 +6,7 @@ import Header from './components/Header/Header';
 import SideBar from './components/Nav/Nav';
 import Profile from './components/Profile/Profile';
 import { connect } from 'react-redux'
+import UsersContainer from './components/Users/UsersContainer';
  
 function App(props) {
   let sidebar = props.sidebar;
@@ -17,8 +18,8 @@ function App(props) {
         <div className="wrapper-content">
           <Route path='/dialogs' render={() => <DialogsContainer />} />
           <Route path='/profile' render={() => <Profile />} />
-          {/* <Route path='/dialogs' render={() => <DialogsContainer store={store} />} />
-                  <Route path='/profile' render={() => <Profile store={store} />} /> */}
+          <Route path='/users' render={() => <UsersContainer />} />
+
           {/* <Route path='/settings' component={Settings}/>
                       <Route path='/music' component={Music}/>
                       <Route path='/feed' component={Feed}/> */}

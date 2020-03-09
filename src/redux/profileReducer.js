@@ -16,10 +16,9 @@ let initialState = {
 //Зарефакторить редьюсер
 
 const profileReducer = (state = initialState, action) => {
-    let stateCopy;
     switch (action.type) {
         case ADD_POST: {
-            stateCopy = {
+            let stateCopy = {
                 ...state,
                 postsData: [...state.postsData]
             }
@@ -37,11 +36,10 @@ const profileReducer = (state = initialState, action) => {
             return stateCopy;
         }
         case UPDATE_NEW_POST_TEXT: {
-            stateCopy = {
+            return {
                 ...state,
-                 newPostText: action.newText
+                newPostText: action.newText
             }
-            return stateCopy;
         }
         default: return state;
     }
