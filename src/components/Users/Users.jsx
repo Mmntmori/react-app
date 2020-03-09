@@ -18,7 +18,7 @@ function Users(props) {
                 </div>
                 <div className={style.userStatus }>
                     <div className={ style.userStatusTitle }>Статус:</div>
-                    <div className={ style.userStatusTitle }>{ u.status }</div>
+                    <div className={ style.userStatusBody }>{ u.status }</div>
                 </div>
             </div>
         </div>
