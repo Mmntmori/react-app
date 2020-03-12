@@ -4,54 +4,54 @@ const FOLLOW = 'FOLLOW',
 
 let initialState = {
     usersList: [
-        {
-            id: 1,
-            isFollowed: false,
-            fullName: 'КОТИК 1',
-            userPicture: 'http://placekitten.com/500/400',
-            location: {
-                country: 'СТРАНА ЧУДЕС',
-                city: 'ДОМ КОЛОТУШКИНА'
-            },
-            status: 'ЕМ ВАТРУШКИ',
+        // {
+        //     id: 1,
+        //     isFollowed: false,
+        //     fullName: 'КОТИК 1',
+        //     userPicture: 'http://placekitten.com/500/400',
+        //     location: {
+        //         country: 'СТРАНА ЧУДЕС',
+        //         city: 'ДОМ КОЛОТУШКИНА'
+        //     },
+        //     status: 'ЕМ ВАТРУШКИ',
 
-        },
-        {
-            id: 2,
-            isFollowed: false,
-            fullName: 'КОТИК 2',
-            userPicture: 'http://placekitten.com/400/500',
-            location: {
-                country: 'СТРАНА ЧУДЕС',
-                city: 'ДОМ ПЕТРУШКИНА'
-            },
-            status: 'ПОЮ ЧАСТУШКИ',
+        // },
+        // {
+        //     id: 2,
+        //     isFollowed: false,
+        //     fullName: 'КОТИК 2',
+        //     userPicture: 'http://placekitten.com/400/500',
+        //     location: {
+        //         country: 'СТРАНА ЧУДЕС',
+        //         city: 'ДОМ ПЕТРУШКИНА'
+        //     },
+        //     status: 'ПОЮ ЧАСТУШКИ',
 
-        },
-        {
-            id: 3,
-            isFollowed: true,
-            fullName: 'КОТИК 3',
-            userPicture: 'http://placekitten.com/400/400',
-            location: {
-                country: 'СТРАНА ЧУДЕС',
-                city: 'ДОМ СВИСТУЛЬКИНА'
-            },
-            status: 'ЧЕШУ МАКУШКУ',
+        // },
+        // {
+        //     id: 3,
+        //     isFollowed: true,
+        //     fullName: 'КОТИК 3',
+        //     userPicture: 'http://placekitten.com/400/400',
+        //     location: {
+        //         country: 'СТРАНА ЧУДЕС',
+        //         city: 'ДОМ СВИСТУЛЬКИНА'
+        //     },
+        //     status: 'ЧЕШУ МАКУШКУ',
 
-        },
-        {
-            id: 4,
-            isFollowed: false,
-            fullName: 'КОТИК 4',
-            userPicture: 'http://placekitten.com/500/500',
-            location: {
-                country: 'СТРАНА ЧУДЕС',
-                city: 'ДОМ ТУПКИНА'
-            },
-            status: 'ПРЫГАЮ КАК ЛЯГУШКИ',
+        // },
+        // {
+        //     id: 4,
+        //     isFollowed: false,
+        //     fullName: 'КОТИК 4',
+        //     userPicture: 'http://placekitten.com/500/500',
+        //     location: {
+        //         country: 'СТРАНА ЧУДЕС',
+        //         city: 'ДОМ ТУПКИНА'
+        //     },
+        //     status: 'ПРЫГАЮ КАК ЛЯГУШКИ',
 
-        }
+        // }
     ]
 }
 
