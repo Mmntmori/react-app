@@ -1,6 +1,8 @@
 const FOLLOW = 'FOLLOW',
     UNFOLLOW = 'UNFOLLOW',
-    SET_USERS = 'SET_USERS';
+    SET_USERS = 'SET_USERS',
+    SET_PAGE = 'SET_PAGE',
+    SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT';
 
 let initialState = {
     usersList: [
@@ -52,7 +54,10 @@ let initialState = {
         //     status: 'ПРЫГАЮ КАК ЛЯГУШКИ',
 
         // }
-    ]
+    ],
+    pageSize: 5,
+    totalUsersCount: 0,
+    currentPage: 1
 }
 
 const usersReducer = (state = initialState, action) => {
@@ -82,7 +87,21 @@ const usersReducer = (state = initialState, action) => {
         case SET_USERS: {
             return {
                 ...state,
-                usersList: [...state.usersList, ...action.usersList]
+                usersList: action.usersList
+            }
+        }
+        case SET_PAGE: {
+            console.log(action);
+            
+            return {
+                ...state,
+                currentPage: action.currentPage
+            }
+        }
+        case SET_TOTAL_USERS_COUNT: {
+            return {
+                ...state,
+                totalUsersCount: action.totalUsersCount
             }
         }
 
@@ -108,6 +127,20 @@ export const setUserListActionCreator = (usersList) => {
     return {
         type: SET_USERS,
         usersList: usersList
+    }
+}
+
+export const setPageActionCreator = (currentPage) => {
+    return {
+        type: SET_PAGE,
+        currentPage: currentPage
+    }
+}
+
+export const setTotalUsersCountActionCreator = (totalUsersCount) => {
+    return {
+        type: SET_TOTAL_USERS_COUNT,
+        totalUsersCount: totalUsersCount
     }
 }
 

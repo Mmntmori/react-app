@@ -11,15 +11,46 @@ class Users extends React.Component {
 
     getUsers = () => {
         if (this.props.usersList.length === 0) {
-            axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
+            axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
                 this.props.setUsersList(response.data.items)
+                this.props.setTotalUsersCount(response.data.totalCount)
+            },
+            reject => {
+                console.log(reject);
             })
         }
+    }
+
+    onPageChange = (pageNumber) => {
+        this.props.setPage(pageNumber)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`).then(response => {
+            this.props.setUsersList(response.data.items)
+        },
+        reject => {
+            console.log(reject);
+        })
+
+    }
+ 
+    componentDidMount() {
+        this.getUsers()
     }
 
    
 
     render() {
+        let pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize);
+
+        let pages = [];
+
+        for (let i = 1; i <= pagesCount; i++) {
+            pages.push(i)
+        }
+
+        let paginationElements = pages.map(e => {
+            return <button onClick={ () => this.onPageChange(e) } className={`${style.userBtn} ${style.paginationBtn} ${this.props.currentPage === e ? style.paginationActiveBtn: ''}`} id={'page'+ e} key={'page'+ e}>{ e }</button>
+        })
+
         let usersListElements = this.props.usersList.map(u => (
             <div key={u.id} className={style.user}>
                 <div className={style.left}>
@@ -42,11 +73,14 @@ class Users extends React.Component {
             </div>
         ));
 
+
         return (
             <div className={style.usersListBlock}>
-                <button onClick={this.getUsers} className={style.userBtn}>Get Users</button>
+                <div className={style.pagination}>
+                    { paginationElements }
+                </div>
 
-                {usersListElements}
+                { usersListElements }
             </div>
         )
     }

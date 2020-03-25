@@ -54,3 +54,24 @@
 .userStatusBody {
     
 }
+
+.pagination {
+    display: flex;
+    padding: 24px 0;
+}
+
+.paginationBtn {
+    width: 32px;
+    height: 32px;
+    padding: 10px;
+    display: block;
+    margin-top: 0;
+}
+
+.paginationBtn + .paginationBtn {
+    margin-left: 16px;
+}
+
+.paginationActiveBtn {
+    box-shadow: 0 0 5px 5px rgb(127, 172, 240);
+}
