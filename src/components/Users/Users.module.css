@@ -58,6 +58,8 @@
 .pagination {
     display: flex;
     padding: 24px 0;
+    flex-wrap: wrap;
+
 }
 
 .paginationBtn {
@@ -66,12 +68,11 @@
     padding: 10px;
     display: block;
     margin-top: 0;
-}
-
-.paginationBtn + .paginationBtn {
-    margin-left: 16px;
+    margin: 0 16px 16px 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .paginationActiveBtn {
-    box-shadow: 0 0 5px 5px rgb(127, 172, 240);
+    box-shadow: 0 0 5px 5px rgb(210, 165, 231);
 }

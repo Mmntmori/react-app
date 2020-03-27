@@ -2,62 +2,15 @@ const FOLLOW = 'FOLLOW',
     UNFOLLOW = 'UNFOLLOW',
     SET_USERS = 'SET_USERS',
     SET_PAGE = 'SET_PAGE',
-    SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT';
+    SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT',
+    TOGGLE_PRELOADER = 'TOGGLE_PRELOADER';
 
 let initialState = {
-    usersList: [
-        // {
-        //     id: 1,
-        //     isFollowed: false,
-        //     fullName: 'КОТИК 1',
-        //     userPicture: 'http://placekitten.com/500/400',
-        //     location: {
-        //         country: 'СТРАНА ЧУДЕС',
-        //         city: 'ДОМ КОЛОТУШКИНА'
-        //     },
-        //     status: 'ЕМ ВАТРУШКИ',
-
-        // },
-        // {
-        //     id: 2,
-        //     isFollowed: false,
-        //     fullName: 'КОТИК 2',
-        //     userPicture: 'http://placekitten.com/400/500',
-        //     location: {
-        //         country: 'СТРАНА ЧУДЕС',
-        //         city: 'ДОМ ПЕТРУШКИНА'
-        //     },
-        //     status: 'ПОЮ ЧАСТУШКИ',
-
-        // },
-        // {
-        //     id: 3,
-        //     isFollowed: true,
-        //     fullName: 'КОТИК 3',
-        //     userPicture: 'http://placekitten.com/400/400',
-        //     location: {
-        //         country: 'СТРАНА ЧУДЕС',
-        //         city: 'ДОМ СВИСТУЛЬКИНА'
-        //     },
-        //     status: 'ЧЕШУ МАКУШКУ',
-
-        // },
-        // {
-        //     id: 4,
-        //     isFollowed: false,
-        //     fullName: 'КОТИК 4',
-        //     userPicture: 'http://placekitten.com/500/500',
-        //     location: {
-        //         country: 'СТРАНА ЧУДЕС',
-        //         city: 'ДОМ ТУПКИНА'
-        //     },
-        //     status: 'ПРЫГАЮ КАК ЛЯГУШКИ',
-
-        // }
-    ],
+    usersList: [],
     pageSize: 5,
     totalUsersCount: 0,
-    currentPage: 1
+    currentPage: 1,
+    isLoading: false
 }
 
 const usersReducer = (state = initialState, action) => {
@@ -91,8 +44,6 @@ const usersReducer = (state = initialState, action) => {
             }
         }
         case SET_PAGE: {
-            console.log(action);
-            
             return {
                 ...state,
                 currentPage: action.currentPage
@@ -102,6 +53,12 @@ const usersReducer = (state = initialState, action) => {
             return {
                 ...state,
                 totalUsersCount: action.totalUsersCount
+            }
+        }
+        case TOGGLE_PRELOADER: {
+            return {
+                ...state,
+                isLoading: action.isLoading
             }
         }
 
@@ -143,6 +100,14 @@ export const setTotalUsersCountActionCreator = (totalUsersCount) => {
         totalUsersCount: totalUsersCount
     }
 }
+
+export const togglePreloaderActionCreator = (isLoading) => {
+    return {
+        type: TOGGLE_PRELOADER,
+        isLoading:  isLoading
+    }
+}
+
 
 
 export default usersReducer;
