@@ -13,4 +13,26 @@
 
 .descriptionBlock {
     padding: 16px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.profilePic {
+    width: 140px;
+    height: 140px;
+    object-fit: cover;
+    overflow: hidden;
+    border-radius: 50%;
+    margin-right: 24px;
+    border: 3px solid lightgray
+}
+
+.profilePic img {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+}
+
+.profileInfo {
+    text-align: right;
 }

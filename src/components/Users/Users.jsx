@@ -1,6 +1,7 @@
 import React from 'react';
 import style from './Users.module.css';
 import Preloader from '../Preloader/Preloader';
+import { NavLink } from 'react-router-dom';
 
 
 const Users = (props) => {
@@ -12,14 +13,16 @@ const Users = (props) => {
         pages.push(i)
     }
 
-    let paginationElements = pages.map(e => {
+    let paginationElements = pages.map(e => { 
         return <button onClick={() => props.onPageChange(e)} className={`${style.userBtn} ${style.paginationBtn} ${props.currentPage === e ? style.paginationActiveBtn : ''}`} id={'page' + e} key={'page' + e}>{e}</button>
     })
 
     let usersListElements = props.usersList.map(u => (
-        <div key={u.id} className={style.user}>
+        <div key={u.id} className={style.user} id={u.id}>
             <div className={style.left}>
-                <img src={u.photos.large != null ? u.photos.large : 'https://placekitten.com/200/200'} alt={u.name} className={style.userPicture} />
+                <NavLink to={`/profile/${u.id}`}>
+                    <img src={u.photos.large != null ? u.photos.large : 'https://placekitten.com/200/200'} alt={u.name} className={style.userPicture} />
+                </NavLink>
                 <button className={style.userBtn} onClick={u.isFollowed ? () => { props.unfollow(u.id) } : () => { props.follow(u.id) }}>
                     {u.isFollowed ? 'UNFOLLOW' : 'FOLLOW'}
                 </button>
@@ -45,9 +48,9 @@ const Users = (props) => {
                 { paginationElements }
             </div>
             { props.isLoading ? <Preloader/> : null}
-
-
-            { props.isLoading ? null : usersListElements }
+            <div>
+                { props.isLoading ? null : usersListElements }
+            </div>
         </div>
     )
 

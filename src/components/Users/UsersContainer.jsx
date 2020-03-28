@@ -2,12 +2,12 @@ import React from 'react';
 import * as axios from 'axios';
 import Users from './Users';
 import { connect } from 'react-redux';
-import { followActionCreator,
-         unfollowActionCreator,
-         setUserListActionCreator,
-         setPageActionCreator,
-         setTotalUsersCountActionCreator,
-         togglePreloaderActionCreator } from '../../redux/usersReducer'
+import { follow,
+         unfollow,
+         setUsersList,
+         setPage,
+         setTotalUsersCount,
+         togglePreloader } from '../../redux/usersReducer'
 
 class UsersAPIContainer extends React.Component {
     getUsers = () => {
@@ -18,7 +18,7 @@ class UsersAPIContainer extends React.Component {
         if (this.props.usersList.length === 0) {
             axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
                 this.props.setUsersList(response.data.items)
-                this.props.setTotalUsersCount(response.data.totalCount)
+                this.props.setTotalUsersCount(response.data.totalCount/100)
                 this.props.togglePreloader(false);
             },
             reject => {
@@ -72,29 +72,6 @@ const mapStateToProps = (state) => {
     })
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return({
-        follow: (userId) => {
-            dispatch(followActionCreator(userId))
-        },
-        unfollow: (userId) => {
-            dispatch(unfollowActionCreator(userId))
-        },
-        setUsersList: (usersList) => {
-            dispatch(setUserListActionCreator(usersList))
-        },
-        setPage: (currentPage) => {
-            dispatch(setPageActionCreator(currentPage))
-        },
-        setTotalUsersCount: (totalUsersCount) => {
-            dispatch(setTotalUsersCountActionCreator(totalUsersCount))
-        },
-        togglePreloader: (isLoading) => {
-            dispatch(togglePreloaderActionCreator(isLoading))
-        }
-    })
-}
-
-const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPIContainer)
+const UsersContainer = connect(mapStateToProps, {follow, unfollow, setUsersList, setPage, setTotalUsersCount, togglePreloader})(UsersAPIContainer)
 
 export default UsersContainer

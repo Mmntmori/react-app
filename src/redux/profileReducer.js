@@ -1,8 +1,10 @@
 
 const ADD_POST = 'ADD-POST',
-    UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+    UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT',
+    SET_PROFILE = 'SET_PROFILE';
 
 let initialState = {
+    profileInfo: null,
     postsData: [
         { id: 1, author: 'Котик', text: 'ПРИВЕТ Я ТВОЙ ПЕРВЫЙ ПОСТ', likesCount: '4' },
         { id: 2, author: 'Котик', text: 'ПРИВЕТ Я ТВОЙ ВТОРОЙ ПОСТ', likesCount: '9' },
@@ -17,10 +19,19 @@ let initialState = {
 
 const profileReducer = (state = initialState, action) => {
     switch (action.type) {
+        case SET_PROFILE: {
+            return {
+                ...state,
+                profileInfo: action.newProfile,
+            }
+        }
         case ADD_POST: {
             let stateCopy = {
                 ...state,
-                postsData: [...state.postsData]
+                myPosts: {
+                    ...state,
+                    postsData: [...state.postsData]
+                }
             }
             let newPostId = stateCopy.postsData[stateCopy.postsData.length - 1].id + 1;
             let newPost = {
@@ -30,7 +41,7 @@ const profileReducer = (state = initialState, action) => {
                 likesCount: '0'
             }
 
-            stateCopy.newPostText ? stateCopy.postsData.push(newPost) : alert('ПОШЕЛ ТЫ НАХЕР, КОЗЕЛ');
+            stateCopy.newPostText ? stateCopy.postsData.push(newPost) : alert('Введите сообщение');
             stateCopy.newPostText = '';
 
             return stateCopy;
@@ -45,16 +56,24 @@ const profileReducer = (state = initialState, action) => {
     }
 }
 
-export const addPostActionCreator = () => {
+export const addPost = () => {
     return {
         type: ADD_POST
     }
 }
-export const updateNewPostTextActionCreator = (newText) => {
+export const updateNewPostText = (newText) => {
     return {
         type: UPDATE_NEW_POST_TEXT,
         newText: newText
     }
 }
+export const setProfile = (newProfile) => {
+    return {
+        type: SET_PROFILE,
+        newProfile: newProfile
+    }
+}
+
+
 
 export default profileReducer;
