@@ -11,11 +11,8 @@ import { follow,
 
 class UsersAPIContainer extends React.Component {
     getUsers = () => {
-        if (!this.props.isLoading) {
-            this.props.togglePreloader(true)
-        }
-        
-        if (this.props.usersList.length === 0) {
+        if (!this.props.usersList.length) {
+            this.props.togglePreloader(true);
             axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
                 this.props.setUsersList(response.data.items)
                 this.props.setTotalUsersCount(response.data.totalCount/100)
@@ -28,9 +25,7 @@ class UsersAPIContainer extends React.Component {
     }
 
     onPageChange = (pageNumber) => {
-        if (!this.props.isLoading) {
-            this.props.togglePreloader(true)
-        }
+        this.props.togglePreloader(true)
 
         this.props.setPage(pageNumber)
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`).then(response => {

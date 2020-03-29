@@ -11,7 +11,6 @@ function Profile(props) {
             
             <MyPostsContainer postsData={ props.postsData } newPostText={ props.newPostText } addPost={ props.addPost } onPostChange={ props.updateNewPostText }/>
         </div>
-
     )
 }
 
