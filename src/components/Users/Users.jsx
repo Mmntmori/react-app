@@ -3,8 +3,9 @@ import style from './Users.module.css';
 import Preloader from '../Preloader/Preloader';
 import { NavLink } from 'react-router-dom';
 
-
 const Users = (props) => {
+    // console.log(props);
+    
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
 
     let pages = [];
@@ -13,19 +14,51 @@ const Users = (props) => {
         pages.push(i)
     }
 
-    let paginationElements = pages.map(e => { 
+    let paginationElements = pages.map(e => {
         return <button onClick={() => props.onPageChange(e)} className={`${style.userBtn} ${style.paginationBtn} ${props.currentPage === e ? style.paginationActiveBtn : ''}`} id={'page' + e} key={'page' + e}>{e}</button>
     })
+
+    // const unfollowUser = function(userId) {
+    //     axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`, {
+    //         withCredentials: true,
+    //         headers: {
+    //             'API-KEY': '3b1c335e-d74d-4d0f-9f07-315ffb4de9e5'
+    //         }
+    //     }).then(response => {
+    //         if (response.data.resultCode === 0) {
+    //             props.unfollow(userId)
+    //         }
+    //     })
+    // }
+    // const followUser = function(userId) {
+    //     axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`, null, {
+    //         withCredentials: true,
+    //         headers: {
+    //             'API-KEY': '3b1c335e-d74d-4d0f-9f07-315ffb4de9e5'
+    //         }
+    //     }).then(response => {
+    //         if (response.data.resultCode === 0) {
+    //             props.follow(userId)
+    //         }
+    //     })
+    // }
 
     let usersListElements = props.usersList.map(u => (
         <div key={u.id} className={style.user} id={u.id}>
             <div className={style.left}>
                 <NavLink to={`/profile/${u.id}`}>
-                    <img src={ u.photos.large !== null ? u.photos.large : 'https://placekitten.com/200/200'} alt={u.name} className={ style.userPicture } />
+                    <img src={u.photos.large !== null ? u.photos.large : 'https://placekitten.com/200/200'} alt={u.name} className={style.userPicture} />
                 </NavLink>
-                <button className={style.userBtn} onClick={u.isFollowed ? () => { props.unfollow(u.id) } : () => { props.follow(u.id) }}>
-                    {u.isFollowed ? 'UNFOLLOW' : 'FOLLOW'}
+                {u.followed ? 
+                <button className={style.userBtn} onClick={() => { props.unfollowUser(u.id) }}>
+                    UNFOLLOW
                 </button>
+                :
+                <button className={style.userBtn} onClick={() => { props.followUser(u.id) }}>
+                    FOLLOW
+                </button>
+
+                }
             </div>
             <div className={style.right}>
                 <div className={style.userName}>{u.name}</div>
@@ -45,11 +78,11 @@ const Users = (props) => {
     return (
         <div className={style.usersListBlock}>
             <div className={style.pagination}>
-                { paginationElements }
+                {paginationElements}
             </div>
-            { props.isLoading ? <Preloader/> : null}
+            {props.isLoading ? <Preloader /> : null}
             <div>
-                { props.isLoading ? null : usersListElements }
+                {props.isLoading ? null : usersListElements}
             </div>
         </div>
     )

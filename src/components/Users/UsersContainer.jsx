@@ -1,5 +1,4 @@
 import React from 'react';
-import * as axios from 'axios';
 import Users from './Users';
 import { connect } from 'react-redux';
 import { follow,
@@ -8,14 +7,15 @@ import { follow,
          setPage,
          setTotalUsersCount,
          togglePreloader } from '../../redux/usersReducer'
+import { getUsers, deleteFollowing, setFollowing } from '../../api/api'
 
 class UsersAPIContainer extends React.Component {
-    getUsers = () => {
+    setUsers = () => {
         if (!this.props.usersList.length) {
             this.props.togglePreloader(true);
-            axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
-                this.props.setUsersList(response.data.items)
-                this.props.setTotalUsersCount(response.data.totalCount/100)
+            getUsers(this.props.CurrentPage, this.props.pageSize).then(response => {
+                this.props.setUsersList(response.items)
+                this.props.setTotalUsersCount(response.totalCount/100)
                 this.props.togglePreloader(false);
             },
             reject => {
@@ -26,10 +26,9 @@ class UsersAPIContainer extends React.Component {
 
     onPageChange = (pageNumber) => {
         this.props.togglePreloader(true)
-
         this.props.setPage(pageNumber)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`).then(response => {
-            this.props.setUsersList(response.data.items)
+        getUsers(pageNumber, this.props.pageSize).then(response => {
+            this.props.setUsersList(response.items)
             this.props.togglePreloader(false);
         },
         reject => {
@@ -37,8 +36,24 @@ class UsersAPIContainer extends React.Component {
         })
     }
 
+    unfollowUser = (userId) => {
+        deleteFollowing(userId).then(response => {
+            if (response.resultCode === 0) {
+                this.props.unfollow(userId)
+            }
+        })
+    }
+
+    followUser = (userId) => {
+        setFollowing(userId).then(response => {
+            if (response.resultCode === 0) {
+                this.props.follow(userId)
+            }
+        })
+    }
+
     componentDidMount() {
-        this.getUsers()
+        this.setUsers()
     }
 
     render() {
@@ -47,10 +62,10 @@ class UsersAPIContainer extends React.Component {
                 totalUsersCount={this.props.totalUsersCount}
                 pageSize={this.props.pageSize}
                 currentPage={this.props.currentPage}
-                unfollow={this.props.unfollow}
-                follow={this.props.follow}
                 onPageChange={this.onPageChange}
                 isLoading={this.props.isLoading}
+                followUser={this.followUser}
+                unfollowUser={this.unfollowUser}
             />
         )
     }
