@@ -3,7 +3,8 @@ const FOLLOW = 'FOLLOW',
     SET_USERS = 'SET_USERS',
     SET_PAGE = 'SET_PAGE',
     SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT',
-    TOGGLE_PRELOADER = 'TOGGLE_PRELOADER';
+    TOGGLE_PRELOADER = 'TOGGLE_PRELOADER',
+    TOGGLE_FOLLOWING_PRELOADER = 'TOGGLE_FOLLOWING_PRELOADER';
 
 let initialState = {
     usersList: [],
@@ -61,6 +62,18 @@ const usersReducer = (state = initialState, action) => {
                 isLoading: action.isLoading
             }
         }
+        case TOGGLE_FOLLOWING_PRELOADER: {
+            return {
+                ...state,
+                usersList: [...state.usersList.map((element) => {
+                    if (element.id === action.userId) {
+                        return {...element, isFollowingIsFetching: action.isFollowingIsFetching}
+                    } else {
+                        return element
+                    }
+                })]
+            }
+        }
 
         default: return state;
     }
@@ -107,6 +120,15 @@ export const togglePreloader = (isLoading) => {
         isLoading:  isLoading
     }
 }
+
+export const toggleFollowingPreloader = (isFollowingIsFetching, userId) => {
+    return {
+        type: TOGGLE_FOLLOWING_PRELOADER,
+        isFollowingIsFetching: isFollowingIsFetching,
+        userId: userId
+    }
+}
+
 
 
 

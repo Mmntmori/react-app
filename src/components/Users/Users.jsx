@@ -4,7 +4,7 @@ import Preloader from '../Preloader/Preloader';
 import { NavLink } from 'react-router-dom';
 
 const Users = (props) => {
-    // console.log(props);
+    console.log(props);
     
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
 
@@ -18,45 +18,20 @@ const Users = (props) => {
         return <button onClick={() => props.onPageChange(e)} className={`${style.userBtn} ${style.paginationBtn} ${props.currentPage === e ? style.paginationActiveBtn : ''}`} id={'page' + e} key={'page' + e}>{e}</button>
     })
 
-    // const unfollowUser = function(userId) {
-    //     axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`, {
-    //         withCredentials: true,
-    //         headers: {
-    //             'API-KEY': '3b1c335e-d74d-4d0f-9f07-315ffb4de9e5'
-    //         }
-    //     }).then(response => {
-    //         if (response.data.resultCode === 0) {
-    //             props.unfollow(userId)
-    //         }
-    //     })
-    // }
-    // const followUser = function(userId) {
-    //     axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`, null, {
-    //         withCredentials: true,
-    //         headers: {
-    //             'API-KEY': '3b1c335e-d74d-4d0f-9f07-315ffb4de9e5'
-    //         }
-    //     }).then(response => {
-    //         if (response.data.resultCode === 0) {
-    //             props.follow(userId)
-    //         }
-    //     })
-    // }
-
     let usersListElements = props.usersList.map(u => (
         <div key={u.id} className={style.user} id={u.id}>
             <div className={style.left}>
                 <NavLink to={`/profile/${u.id}`}>
                     <img src={u.photos.large !== null ? u.photos.large : 'https://placekitten.com/200/200'} alt={u.name} className={style.userPicture} />
                 </NavLink>
-                {u.followed ? 
-                <button className={style.userBtn} onClick={() => { props.unfollowUser(u.id) }}>
+                { u.followed ? 
+                <button disabled={ u.isFollowingIsFetching } className={style.userBtn} onClick={() => { props.unfollowUser(u.id) }}>
                     UNFOLLOW
                 </button>
                 :
-                <button className={style.userBtn} onClick={() => { props.followUser(u.id) }}>
+                <button disabled={ u.isFollowingIsFetching } className={style.userBtn} onClick={() => { props.followUser(u.id) }}>
                     FOLLOW
-                </button>
+                </button> 
 
                 }
             </div>
