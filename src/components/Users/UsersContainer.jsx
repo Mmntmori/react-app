@@ -1,65 +1,32 @@
 import React from 'react';
 import Users from './Users';
 import { connect } from 'react-redux';
-import { follow,
-         unfollow,
-         setUsersList,
-         setPage,
-         setTotalUsersCount,
-         togglePreloader,
-         toggleFollowingPreloader } from '../../redux/usersReducer'
-import { getUsers, deleteFollowing, setFollowing } from '../../api/api'
+import {
+    getUsersThunk,
+    onPageChangeThunk,
+    followUserThunk,
+    unfollowUserThunk
+} from '../../redux/usersReducer'
 
 class UsersAPIContainer extends React.Component {
-    setUsers = () => {
-        if (!this.props.usersList.length) {
-            this.props.togglePreloader(true);
-            getUsers(this.props.CurrentPage, this.props.pageSize).then(response => {
-                this.props.setUsersList(response.items.map((element) => ({...element, isFollowingIsFetching: false})))
-                this.props.setTotalUsersCount(response.totalCount/100)
-                this.props.togglePreloader(false);
-            },
-            reject => {
-                console.log(reject);
-            })
-        }
+    setUsers = (currentPage, pageSize) => {
+        this.props.getUsersThunk(currentPage, pageSize)
     }
 
-    onPageChange = (pageNumber) => {
-        this.props.togglePreloader(true)
-        this.props.setPage(pageNumber)
-        getUsers(pageNumber, this.props.pageSize).then(response => {
-            this.props.setUsersList(response.items)
-            this.props.togglePreloader(false);
-        },
-        reject => {
-            console.log(reject);
-        })
+    onPageChange = (pageNumber, pageSize) => {
+        this.props.onPageChangeThunk(pageNumber, pageSize)
     }
 
     unfollowUser = (userId) => {
-        this.props.toggleFollowingPreloader(true, userId)
-        deleteFollowing(userId).then(response => {
-            if (response.resultCode === 0) {
-                this.props.unfollow(userId)
-                this.props.toggleFollowingPreloader(false, userId)
-
-            }
-        })
+        this.props.unfollowUserThunk(userId)
     }
 
     followUser = (userId) => {
-        this.props.toggleFollowingPreloader(true, userId)
-        setFollowing(userId).then(response => {
-            if (response.resultCode === 0) {
-                this.props.follow(userId)
-                this.props.toggleFollowingPreloader(false, userId)
-            }
-        })
+        this.props.followUserThunk(userId)
     }
 
     componentDidMount() {
-        this.setUsers()
+        this.setUsers(this.props.currentPage, this.props.pageSize)
     }
 
     render() {
@@ -68,8 +35,9 @@ class UsersAPIContainer extends React.Component {
                 totalUsersCount={this.props.totalUsersCount}
                 pageSize={this.props.pageSize}
                 currentPage={this.props.currentPage}
-                onPageChange={this.onPageChange}
                 isLoading={this.props.isLoading}
+                setUsers={this.setUsers}
+                onPageChange={this.onPageChange}
                 followUser={this.followUser}
                 unfollowUser={this.unfollowUser}
             />
@@ -79,7 +47,7 @@ class UsersAPIContainer extends React.Component {
 
 
 const mapStateToProps = (state) => {
-    return({
+    return ({
         usersList: state.usersPage.usersList,
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
@@ -88,6 +56,6 @@ const mapStateToProps = (state) => {
     })
 }
 
-const UsersContainer = connect(mapStateToProps, {follow, unfollow, setUsersList, setPage, setTotalUsersCount, togglePreloader, toggleFollowingPreloader})(UsersAPIContainer)
+const UsersContainer = connect(mapStateToProps, { getUsersThunk, onPageChangeThunk, followUserThunk, unfollowUserThunk })(UsersAPIContainer)
 
 export default UsersContainer

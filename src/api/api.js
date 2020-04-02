@@ -25,7 +25,7 @@ export const authoriseMe = () => {
         return instance.get('https://social-network.samuraijs.com/api/1.0/auth/me',).then(response => response.data)
 }
 
-export const getUserProfile = (userId) => {
+export const getUserProfileData = (userId) => {
         return instance.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`).then(response => response.data)
 }
 

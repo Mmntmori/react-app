@@ -1,3 +1,7 @@
+import { getUsers,
+    deleteFollowing,
+    setFollowing } from '../api/api'
+
 const FOLLOW = 'FOLLOW',
     UNFOLLOW = 'UNFOLLOW',
     SET_USERS = 'SET_USERS',
@@ -67,7 +71,7 @@ const usersReducer = (state = initialState, action) => {
                 ...state,
                 usersList: [...state.usersList.map((element) => {
                     if (element.id === action.userId) {
-                        return {...element, isFollowingIsFetching: action.isFollowingIsFetching}
+                        return { ...element, isFollowingIsFetching: action.isFollowingIsFetching }
                     } else {
                         return element
                     }
@@ -117,7 +121,7 @@ export const setTotalUsersCount = (totalUsersCount) => {
 export const togglePreloader = (isLoading) => {
     return {
         type: TOGGLE_PRELOADER,
-        isLoading:  isLoading
+        isLoading: isLoading
     }
 }
 
@@ -126,6 +130,61 @@ export const toggleFollowingPreloader = (isFollowingIsFetching, userId) => {
         type: TOGGLE_FOLLOWING_PRELOADER,
         isFollowingIsFetching: isFollowingIsFetching,
         userId: userId
+    }
+}
+
+export const getUsersThunk = (currentPage, pageSize) => {
+    return (dispatch) => {
+        dispatch(togglePreloader(true));
+        getUsers(currentPage, pageSize).then(response => {
+            dispatch(setUsersList(response.items.map((element) => ({ ...element, isFollowingIsFetching: false }))))
+            dispatch(setTotalUsersCount(response.totalCount / 100))
+            dispatch(togglePreloader(false));
+        },
+            reject => {
+                console.log(reject);
+            })
+    }
+}
+
+export const onPageChangeThunk = (pageNumber, pageSize) => {
+    return (dispatch) => {
+        dispatch(togglePreloader(true))
+        dispatch(setPage(pageNumber))
+        getUsers(pageNumber, pageSize).then(response => {
+            dispatch(setUsersList(response.items));
+            dispatch(togglePreloader(false));
+        },
+            reject => {
+                console.log(reject);
+            })
+    }
+}
+
+export const unfollowUserThunk = (userId) => {
+    return (dispatch) => {
+        dispatch(toggleFollowingPreloader(true, userId))
+        // debugger
+        deleteFollowing(userId).then(response => {
+            if (response.resultCode === 0) {
+                dispatch(unfollow(userId))
+                dispatch(toggleFollowingPreloader(false, userId))
+                
+            }
+        })
+    }
+}
+
+export const followUserThunk = (userId) => {
+    return (dispatch) => {
+        dispatch(toggleFollowingPreloader(true, userId))
+        // debugger
+        setFollowing(userId).then(response => {
+            if (response.resultCode === 0) {
+                dispatch(follow(userId))
+                dispatch(toggleFollowingPreloader(false, userId))
+            }
+        })
     }
 }
 

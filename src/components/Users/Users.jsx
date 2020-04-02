@@ -3,9 +3,7 @@ import style from './Users.module.css';
 import Preloader from '../Preloader/Preloader';
 import { NavLink } from 'react-router-dom';
 
-const Users = (props) => {
-    console.log(props);
-    
+const Users = (props) => {    
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
 
     let pages = [];
@@ -15,7 +13,7 @@ const Users = (props) => {
     }
 
     let paginationElements = pages.map(e => {
-        return <button onClick={() => props.onPageChange(e)} className={`${style.userBtn} ${style.paginationBtn} ${props.currentPage === e ? style.paginationActiveBtn : ''}`} id={'page' + e} key={'page' + e}>{e}</button>
+        return <button onClick={() => props.onPageChange(e, props.pageSize)} className={`${style.userBtn} ${style.paginationBtn} ${props.currentPage === e ? style.paginationActiveBtn : ''}`} id={'page' + e} key={'page' + e}>{e}</button>
     })
 
     let usersListElements = props.usersList.map(u => (

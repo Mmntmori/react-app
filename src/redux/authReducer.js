@@ -1,3 +1,5 @@
+import { authoriseMe } from '../api/api'
+
 const SET_USER_DATA = 'SET_USER_DATA',
 SET_LOGIN_STATUS = 'SET_LOGIN_STATUS';
 
@@ -39,6 +41,20 @@ export const setLoginStatus = (status) => {
     return {
         type: SET_LOGIN_STATUS,
         isLoggedIn: status
+    }
+}
+
+export const setAuthUserDataThunk = () => {
+    return (dispatch) => {
+        authoriseMe().then(response => {
+            console.log();
+            if (response.resultCode === 0) {
+                let data = response.data;
+                dispatch(setAuthUserData(data.id, data.email, data.login))
+                dispatch(setLoginStatus(true))
+            }
+        })
+
     }
 }
 

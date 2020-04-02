@@ -1,4 +1,4 @@
-
+import { getUserProfileData, authoriseMe } from '../api/api'
 const ADD_POST = 'ADD-POST',
     UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT',
     SET_PROFILE = 'SET_PROFILE';
@@ -71,6 +71,37 @@ export const setProfile = (newProfile) => {
     return {
         type: SET_PROFILE,
         newProfile: newProfile
+    }
+}
+
+export const setUsersProfileDataThunk = (userId) => {
+    return (dispatch) => {
+        if (userId === undefined) {
+            authoriseMe().then(
+                response => {
+                    console.log(response);
+                    if (response.resultCode === 0) {
+                        userId = response.data.id;
+                        return userId
+                    } else {
+                        throw new Error('Ваш профиль не загружен, потому что вы не залогинены');
+                    }
+                }
+            )
+                .then(userId => {
+                    getUserProfileData(userId).then(response => {
+                        dispatch(setProfile(response));
+                    })
+                })
+                .catch(error => {
+                    alert('Вы не залогинены. Пожалуйста войдите в свою учётную запись')
+                    console.log(error)
+                })
+        } else {
+            getUserProfileData(userId).then(response => {
+                dispatch(setProfile(response));
+            })
+        }
     }
 }
 
