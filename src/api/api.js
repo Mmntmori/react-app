@@ -14,18 +14,18 @@ export const getUsers = (currentPage, pageSize) => {
 }
 
 export const deleteFollowing = (userId) => {
-        return instance.delete(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`).then(response => response.data)
+        return instance.delete(`follow/${userId}`).then(response => response.data)
 }
 
 export const setFollowing = (userId) => {
-        return instance.post(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`).then(response => response.data)
+        return instance.post(`follow/${userId}`).then(response => response.data)
 }
 
 export const authoriseMe = () => {
-        return instance.get('https://social-network.samuraijs.com/api/1.0/auth/me',).then(response => response.data)
+        return instance.get('auth/me',).then(response => response.data)
 }
 
 export const getUserProfileData = (userId) => {
-        return instance.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`).then(response => response.data)
+        return instance.get(`profile/${userId}`).then(response => response.data)
 }
 

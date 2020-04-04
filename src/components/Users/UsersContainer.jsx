@@ -1,12 +1,8 @@
 import React from 'react';
-import Users from './Users';
 import { connect } from 'react-redux';
-import {
-    getUsersThunk,
-    onPageChangeThunk,
-    followUserThunk,
-    unfollowUserThunk
-} from '../../redux/usersReducer'
+import { withLoginRedirect } from '../../hoc/withLoginRedirect';
+import { followUserThunk, getUsersThunk, onPageChangeThunk, unfollowUserThunk } from '../../redux/usersReducer';
+import Users from './Users';
 
 class UsersAPIContainer extends React.Component {
     setUsers = (currentPage, pageSize) => {
@@ -45,6 +41,7 @@ class UsersAPIContainer extends React.Component {
     }
 }
 
+const LoginRedirectUsers = withLoginRedirect(UsersAPIContainer)
 
 const mapStateToProps = (state) => {
     return ({
@@ -52,10 +49,11 @@ const mapStateToProps = (state) => {
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
-        isLoading: state.usersPage.isLoading
+        isLoading: state.usersPage.isLoading,
+        isLoggedIn: state.auth.isLoggedIn
     })
 }
 
-const UsersContainer = connect(mapStateToProps, { getUsersThunk, onPageChangeThunk, followUserThunk, unfollowUserThunk })(UsersAPIContainer)
+const UsersContainer = connect(mapStateToProps, { getUsersThunk, onPageChangeThunk, followUserThunk, unfollowUserThunk })(LoginRedirectUsers)
 
 export default UsersContainer

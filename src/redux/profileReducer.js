@@ -76,15 +76,12 @@ export const setProfile = (newProfile) => {
 
 export const setUsersProfileDataThunk = (userId) => {
     return (dispatch) => {
-        if (userId === undefined) {
+        if (!userId) {
             authoriseMe().then(
                 response => {
-                    console.log(response);
                     if (response.resultCode === 0) {
                         userId = response.data.id;
                         return userId
-                    } else {
-                        throw new Error('Ваш профиль не загружен, потому что вы не залогинены');
                     }
                 }
             )
@@ -92,10 +89,6 @@ export const setUsersProfileDataThunk = (userId) => {
                     getUserProfileData(userId).then(response => {
                         dispatch(setProfile(response));
                     })
-                })
-                .catch(error => {
-                    alert('Вы не залогинены. Пожалуйста войдите в свою учётную запись')
-                    console.log(error)
                 })
         } else {
             getUserProfileData(userId).then(response => {
