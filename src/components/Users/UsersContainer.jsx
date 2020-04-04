@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
 import { withLoginRedirect } from '../../hoc/withLoginRedirect';
 import { followUserThunk, getUsersThunk, onPageChangeThunk, unfollowUserThunk } from '../../redux/usersReducer';
 import Users from './Users';
@@ -41,8 +42,6 @@ class UsersAPIContainer extends React.Component {
     }
 }
 
-const LoginRedirectUsers = withLoginRedirect(UsersAPIContainer)
-
 const mapStateToProps = (state) => {
     return ({
         usersList: state.usersPage.usersList,
@@ -53,7 +52,9 @@ const mapStateToProps = (state) => {
         isLoggedIn: state.auth.isLoggedIn
     })
 }
-
-const UsersContainer = connect(mapStateToProps, { getUsersThunk, onPageChangeThunk, followUserThunk, unfollowUserThunk })(LoginRedirectUsers)
+const UsersContainer = compose(
+    connect(mapStateToProps, { getUsersThunk, onPageChangeThunk, followUserThunk, unfollowUserThunk }),
+    withLoginRedirect
+)(UsersAPIContainer)
 
 export default UsersContainer

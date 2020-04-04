@@ -1,5 +1,6 @@
 import React from 'react';
 import style from './ProfileInfo.module.css'
+import ProfileStatus from './ProfileStatus';
 
 const ProfileInfo = (props) => {
     return (
@@ -15,6 +16,7 @@ const ProfileInfo = (props) => {
                     <h1>{ props.profileInfo.fullName }</h1>
                     <p>{ props.profileInfo.aboutMe }</p>
                     { props.profileInfo.lookingForAJob ? <span>'Ищу работу'</span> : null }
+                    <ProfileStatus />
                     { props.profileInfo.lookingForAJobDescription ? <span>{props.profileInfo.lookingForAJobDescription}</span> : null }
                 </div>
             </div>

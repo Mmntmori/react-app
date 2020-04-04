@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 export const withLoginRedirect = (Component) => {
     const RedirectComponent = (props) => {
         if (!props.isLoggedIn) {
-            alert('Вы не залогинены. Пожалуйста войдите в свою учётную запись')
+            // alert('Вы не залогинены. Пожалуйста войдите в свою учётную запись')
             return <Redirect to='/login' />
         } else {
             return <Component {...props}/>
