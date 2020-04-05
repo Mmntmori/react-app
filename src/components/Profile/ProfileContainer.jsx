@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 import { withLoginRedirect } from '../../hoc/withLoginRedirect';
-import { setUsersProfileDataThunk } from '../../redux/profileReducer';
+import { setStatusThunk, setUsersProfileDataThunk, updateStatusThunk } from '../../redux/profileReducer';
 import Profile from './Profile';
-import { withRouter } from 'react-router-dom';
 
 class ProfileContainer extends React.Component {
     getProfile = (userId) => {
@@ -12,15 +12,16 @@ class ProfileContainer extends React.Component {
     }
 
     
-    componentDidMount() {
+    componentDidMount() {        
         if (this.props.isLoggedIn) {
             this.getProfile(this.props.match.params.userId)
+            this.props.setStatusThunk(this.props.match.params.userId)
         }
     }
     
     render() {
         return (
-            <Profile {...this.props} profileInfo={this.props.profileInfo}/>
+            <Profile {...this.props} profileInfo={this.props.profileInfo} profileStatus={this.props.profileStatus} updateStatusThunk={this.props.updateStatusThunk}/>
         )
     }
 
@@ -35,12 +36,13 @@ class ProfileContainer extends React.Component {
 
 const mapStateToProps = (state) => {
     return ({
-        profileInfo: state.profilePage.profileInfo
+        profileInfo: state.profilePage.profileInfo,
+        profileStatus: state.profilePage.profileStatus
     })
 }
 
 export default compose(
-    connect(mapStateToProps, { setUsersProfileDataThunk }),
+    connect(mapStateToProps, { setUsersProfileDataThunk, setStatusThunk, updateStatusThunk }),
     withRouter,
     withLoginRedirect
 )(ProfileContainer)

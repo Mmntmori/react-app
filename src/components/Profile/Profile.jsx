@@ -7,7 +7,9 @@ import Preloader from '../Preloader/Preloader';
 function Profile(props) {
     return (
         <div className={ style.profile }>
-            { props.profileInfo ? <ProfileInfo profileInfo={ props.profileInfo } setProfile={ props.setProfile }/> : <Preloader />}
+            { props.profileInfo 
+            ? <ProfileInfo profileInfo={ props.profileInfo } profileStatus={ props.profileStatus } updateStatusThunk={ props.updateStatusThunk }/>
+            : <Preloader />}
             
             <MyPostsContainer postsData={ props.postsData } newPostText={ props.newPostText } addPost={ props.addPost } onPostChange={ props.updateNewPostText }/>
         </div>

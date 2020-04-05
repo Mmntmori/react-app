@@ -1,7 +1,9 @@
-import { getUserProfileData, authoriseMe } from '../api/api'
+import { getUserProfileData, authoriseMe, getStatus, updateStatus } from '../api/api'
+
 const ADD_POST = 'ADD-POST',
     UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT',
-    SET_PROFILE = 'SET_PROFILE';
+    SET_PROFILE = 'SET_PROFILE',
+    SET_STATUS = 'SET_STATUS';
 
 let initialState = {
     profileInfo: null,
@@ -11,7 +13,8 @@ let initialState = {
         { id: 3, author: 'Котик', text: 'ПРИВЕТ Я ТВОЙ ТРЕТИЙ ПОСТ', likesCount: '22' },
         { id: 4, author: 'Котик', text: 'ПРИВЕТ Я ТВОЙ ЧЕТВЁРТЫЙ ПОСТ', likesCount: '12' }
     ],
-    newPostText: 'New text'
+    newPostText: 'New text',
+    profileStatus: null
 }
 
 //TODO:
@@ -23,6 +26,12 @@ const profileReducer = (state = initialState, action) => {
             return {
                 ...state,
                 profileInfo: action.newProfile,
+            }
+        }
+        case SET_STATUS: {
+            return {
+                ...state,
+                profileStatus: action.status,
             }
         }
         case ADD_POST: {
@@ -71,6 +80,48 @@ export const setProfile = (newProfile) => {
     return {
         type: SET_PROFILE,
         newProfile: newProfile
+    }
+}
+export const setStatus = (status) => {
+    return {
+        type: SET_STATUS,
+        status: status
+    }
+}
+
+export const setStatusThunk = (userId) => {
+    return (dispatch) => {
+        if (!userId) {
+            authoriseMe().then(
+                response => {
+                    if (response.resultCode === 0) {
+                        userId = response.data.id;
+                        return userId
+                    }
+                }
+            )
+                .then(userId => {
+                    getStatus(userId).then(response => {
+                        dispatch(setStatus(response.data))
+                    })
+                })
+
+        } else {
+            getStatus(userId).then(response => {
+                dispatch(setStatus(response.data))
+            })
+        }
+    }
+}
+
+export const updateStatusThunk = (status) => {
+    return (dispatch) => {
+        updateStatus(status).then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(setStatus(status))
+            }
+        })
+
     }
 }
 

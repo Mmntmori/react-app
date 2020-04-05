@@ -36,3 +36,34 @@
 .profileInfo {
     text-align: right;
 }
+
+.statusBar {
+    background-color: rgb(148, 227, 247);
+    padding: 8px 16px;
+    border-radius: 4px;
+    min-height: 32px;
+    min-width: 240px;
+    box-sizing: border-box;
+}
+
+.statusBar span {
+    width: 100%;
+    font-size: 16px;
+    line-height: 24px;
+    display: block;
+}
+
+.statusBar label {
+    width: 100%;
+}
+
+.statusBar input {
+    width: 100%;
+    border: none;
+    font-size: 16px;
+    line-height: 24px;
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+    text-align: right;
+}
