@@ -7,32 +7,34 @@ import ProfileContainer from './components/Profile/ProfileContainer';
 import { connect } from 'react-redux'
 import UsersContainer from './components/Users/UsersContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
+import Login from './components/Login/Login'
 
 function App(props) {
-  let sidebar = props.sidebar;
-  return (
-    <div className="wrapper">
-      <div className="container">
-        <HeaderContainer />
-        <SideBar sidebar={sidebar} />
-        <div className="wrapper-content">
-          <Route path='/dialogs' render={() => <DialogsContainer />} />
-          <Route path='/profile/:userId?' render={() => <ProfileContainer />} />
-          <Route path='/users' render={() => <UsersContainer />} />
+    let sidebar = props.sidebar;
+    return (
+        <div className="wrapper">
+            <div className="container">
+                <HeaderContainer />
+                <SideBar sidebar={sidebar} />
+                <div className="wrapper-content">
+                    <Route path='/dialogs' render={() => <DialogsContainer />} />
+                    <Route path='/profile/:userId?' render={() => <ProfileContainer />} />
+                    <Route path='/users' render={() => <UsersContainer />} />
+                    <Route path='/login' component={() => <Login />} />
 
-          {/* <Route path='/settings' component={Settings}/>
+                    {/* <Route path='/settings' component={Settings}/>
                       <Route path='/music' component={Music}/>
-                      <Route path='/feed' component={Feed}/> */}
+  <Route path='/feed' component={Feed}/> */}
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  )
+    )
 }
 
 const mapStateToProps = (state) => {
-  return ({
-    sidebar: state.sidebar
-  })
+    return ({
+        sidebar: state.sidebar
+    })
 }
 
 const AppContainer = connect(mapStateToProps)(App)

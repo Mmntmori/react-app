@@ -37,6 +37,7 @@
     "autoreload": "0.0.7",
     "axios": "^0.19.2",
     "react-redux": "^7.2.0",
-    "redux": "^4.0.5"
+    "redux": "^4.0.5",
+    "redux-form": "^8.3.5"
   }
 }

@@ -3,8 +3,6 @@ import style from './ProfileInfo.module.css'
 import ProfileStatus from './ProfileStatus';
 
 const ProfileInfo = (props) => {
-    console.log(props);
-    
     return (
         <div className={ style.info }>
             <div className={ style.banner }>

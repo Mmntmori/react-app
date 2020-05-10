@@ -1,11 +1,13 @@
 
 import React from 'react';
 import style from './ProfileInfo.module.css';
+import Preloader from '../../Preloader/Preloader'
 
 class ProfileStatus extends React.Component {
     state = {
         editMode: false,
-        statusValue: this.props.profileStatus ? this.props.profileStatus : 'Расскажите о себе'
+        statusValue: this.props.profileStatus ? this.props.profileStatus : 'Расскажите о себе',
+        isLoading: false
     }
 
     toggleEditMode = () => {
@@ -21,23 +23,37 @@ class ProfileStatus extends React.Component {
         }
     }
 
-    changeStatus = (text) => {        
+    changeStatus = (text) => {
+
         this.setState({
             statusValue: text
         })
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        debugger
+        if (prevState.statusValue !== this.state.statusValue) {
+            this.setState({
+                statusValue: this.state.statusValue
+            })
+        }
+        console.log('componentDidUpdate')
+    }
+
     render() {
-        
+
         return (
-            <div className={ style.statusBar }>
-                { !this.state.editMode ?
-                <span onDoubleClick={ this.toggleEditMode }>{ this.props.profileStatus }</span>:
-                <label htmlFor="statusBar" onBlur={ this.toggleEditMode }>
-                    <input autoFocus={true} type="text" name="statusBar" id="" value={ this.state.statusValue } onChange={ (e) => { this.changeStatus(e.currentTarget.value) }}></input>
-                </label>
+            <div className={style.statusBar}>
+                {this.state.isLoading ?
+                    <Preloader /> :
+                    null}
+                {!this.state.editMode ?
+                    <span onDoubleClick={this.toggleEditMode}>{this.props.profileStatus}</span> :
+                    <label htmlFor="statusBar" onBlur={this.toggleEditMode}>
+                        <input autoFocus={true} type="text" name="statusBar" id="" value={this.state.statusValue} onChange={(e) => { this.changeStatus(e.currentTarget.value) }}></input>
+                    </label>
                 }
-            </div>    
+            </div>
         )
     }
 }
