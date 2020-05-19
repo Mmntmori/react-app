@@ -1,4 +1,5 @@
-import { authoriseMe } from '../api/api'
+import { authoriseMe, login } from '../api/api'
+
 
 const SET_USER_DATA = 'SET_USER_DATA',
 SET_LOGIN_STATUS = 'SET_LOGIN_STATUS';
@@ -55,6 +56,19 @@ export const setAuthUserDataThunk = () => {
             }
         })
 
+    }
+}
+
+export const loginThunk = (formData) => {
+    debugger
+    return (dispatch) => {
+        debugger
+        login(formData).then(response => {
+            console.log(response);
+            if (response.resultCode === 0) {
+
+            }
+        });
     }
 }
 

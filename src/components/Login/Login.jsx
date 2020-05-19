@@ -1,11 +1,15 @@
 import React from 'react';
 import style from './Login.module.css'
 import { reduxForm, Field } from 'redux-form';
+import { loginThunk } from '../../redux/authReducer';
 
 const Login = (props) => {
 
     const onSubmit = (formData) => {
-        console.log(formData)
+        debugger
+        loginThunk(formData);
+        if (formData.email && formData.password) {
+        }
     }
     
     return (
@@ -20,7 +24,7 @@ const LoginForm = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
-                <Field component={'input'} placeholder={'Login'} name={'login'}/>
+                <Field component={'input'} placeholder={'Login'} name={'email'}/>
             </div>
             <div>
                 <Field component={'input'} placeholder={'Password'} name={'password'}/>

@@ -31,13 +31,11 @@ class ProfileStatus extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        debugger
         if (prevState.statusValue !== this.state.statusValue) {
             this.setState({
                 statusValue: this.state.statusValue
             })
         }
-        console.log('componentDidUpdate')
     }
 
     render() {

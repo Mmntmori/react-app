@@ -37,3 +37,8 @@ export const updateStatus = (status) => {
     return instance.put(`profile/status`, { status: status })
 }
 
+export const login = (formData) => {
+    debugger
+    return instance.post('auth/login', { email: formData.email, password: formData.password, rememberMe: formData.rememberMe ? true : false })
+}
+

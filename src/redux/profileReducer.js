@@ -1,7 +1,6 @@
 import { getUserProfileData, authoriseMe, getStatus, updateStatus } from '../api/api'
 
 const ADD_POST = 'ADD-POST',
-    UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT',
     SET_PROFILE = 'SET_PROFILE',
     SET_STATUS = 'SET_STATUS';
 
@@ -13,7 +12,6 @@ let initialState = {
         { id: 3, author: 'Котик', text: 'ПРИВЕТ Я ТВОЙ ТРЕТИЙ ПОСТ', likesCount: '22' },
         { id: 4, author: 'Котик', text: 'ПРИВЕТ Я ТВОЙ ЧЕТВЁРТЫЙ ПОСТ', likesCount: '12' }
     ],
-    newPostText: 'New text',
     profileStatus: null
 }
 
@@ -35,53 +33,41 @@ const profileReducer = (state = initialState, action) => {
             }
         }
         case ADD_POST: {
+            debugger
             let stateCopy = {
                 ...state,
-                myPosts: {
-                    ...state,
-                    postsData: [...state.postsData]
-                }
+                postsData: [...state.postsData]
             }
-            let newPostId = stateCopy.postsData[stateCopy.postsData.length - 1].id + 1;
             let newPost = {
-                id: newPostId,
+                id: stateCopy.postsData[stateCopy.postsData.length - 1].id + 1,
                 author: 'Котик',
-                text: stateCopy.newPostText,
+                text: action.newText,
                 likesCount: '0'
             }
 
-            stateCopy.newPostText ? stateCopy.postsData.push(newPost) : alert('Введите сообщение');
-            stateCopy.newPostText = '';
+            action.newText ? stateCopy.postsData.push(newPost) : alert('Введите сообщение');
 
             return stateCopy;
         }
-        case UPDATE_NEW_POST_TEXT: {
-            return {
-                ...state,
-                newPostText: action.newText
-            }
-        }
+
         default: return state;
     }
 }
 
-export const addPost = () => {
+export const addPost = (newText) => {
     return {
-        type: ADD_POST
-    }
-}
-export const updateNewPostText = (newText) => {
-    return {
-        type: UPDATE_NEW_POST_TEXT,
+        type: ADD_POST,
         newText: newText
     }
 }
+
 export const setProfile = (newProfile) => {
     return {
         type: SET_PROFILE,
         newProfile: newProfile
     }
 }
+
 export const setStatus = (status) => {
     return {
         type: SET_STATUS,

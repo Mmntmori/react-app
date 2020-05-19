@@ -2,44 +2,54 @@ import React from 'react';
 import DialogItem from './DialogItem/DialogItem';
 import style from './Dialogs.module.css';
 import Message from './Message/Message';
+import { reduxForm, Field } from 'redux-form';
 
 
 function Dialogs(props) {
 
-    let dialogsData = props.dialogsPage.dialogsData;
-    let messagesData = props.dialogsPage.messagesData;
-    let newMessageText = props.dialogsPage.newMessageText;
-    let sendMessage = props.sendMessage;
-    let onMessageChange = (e) => {
-        let text = e.target.value;
-        props.onMessageChange(text)
-    };
+    let dialogsData = props.dialogsPage.dialogsData,
+        messagesData = props.dialogsPage.messagesData,
 
-    let dialogsElements = dialogsData.map(el => (<DialogItem key={el.id}
-        name={el.name}
-        id={el.id}
-        avatar={el.avatar} />));
-    let messagesElements = messagesData.map(el => (<Message key={el.id}
-        id={el.id}
-        message={el.message} />));
+        dialogsElements = dialogsData.map(el => (<DialogItem key={el.id}
+            name={el.name}
+            id={el.id}
+            avatar={el.avatar} />));
 
-        
+    const onSubmit = (formData) => {
+        props.sendMessage(formData.newMessageText);
+    }
 
     return (
         <div className={style.dialogs}>
             <div className={style.dialogsItems}>
                 {dialogsElements}
             </div>
-            <div className={style.messagesList}>
-                <div className={style.messagesItems}>{messagesElements}</div>
-                <textarea value={newMessageText}
-                    onChange={onMessageChange}
-                    className={style.field} />
-                <button onClick={sendMessage}
-                    className={style.btn}>Отправить</button>
-            </div>
+            <MessageWindowReduxForm onSubmit={onSubmit} messagesData={messagesData} />
         </div>
     )
 }
+
+function MessageWindow(props) {
+
+    let messagesElements = props.messagesData.map(el => (<Message key={el.id}
+        id={el.id}
+        message={el.message} />));
+
+    return (
+        <form onSubmit={props.handleSubmit}>
+            <div className={style.messagesList}>
+                <div className={style.messagesItems}>{messagesElements}</div>
+                <Field component='textarea' name='newMessageText' className={style.field} />
+                <button className={style.btn}>Отправить</button>
+            </div>
+        </form>
+
+    )
+}
+
+const MessageWindowReduxForm = reduxForm({ form: 'messageWindowForm' })(MessageWindow);
+
+
+
 
 export default Dialogs

@@ -1,7 +1,8 @@
 import Dialogs from './Dialogs'
-import { updateNewMessageTextActionCreator, sendMessageActionCreator } from '../../redux/dialogsReducer';
+import { sendMessageActionCreator } from '../../redux/dialogsReducer';
 import { connect } from 'react-redux';
 import { withLoginRedirect } from '../../hoc/withLoginRedirect';
+import { reset } from 'redux-form';
 
 
 const mapStateToProps = (state) => {
@@ -12,11 +13,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return({
-        onMessageChange: (text) => {
-            dispatch(updateNewMessageTextActionCreator(text));
-        },
-        sendMessage: () => {
-            dispatch(sendMessageActionCreator());
+        sendMessage: (newText) => {
+            dispatch(sendMessageActionCreator(newText));
+            //Пока не знаю оставить ли тут второй диспатч или замутить thunk...
+            dispatch(reset('messageWindowForm'));
         }
     })
 }
